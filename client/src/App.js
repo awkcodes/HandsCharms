@@ -9,6 +9,7 @@ import AboutScreen from './screens/AboutScreen';
 import ShopScreen from './screens/ShopScreen';
 import ContactScreen from './screens/ContactScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import AdminScreen from './screens/AdminScreen';
 import './assets/styles/global.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/shop" element={<ShopScreen />} />
           <Route path="/contact" element={<ContactScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/admin" element={<AdminScreen />} />
         </Routes>
       </Layout>
     </Router>

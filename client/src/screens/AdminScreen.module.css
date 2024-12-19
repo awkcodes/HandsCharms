@@ -1,0 +1,29 @@
+.adminScreen {
+  margin-top: 80px;
+  padding: 2rem;
+}
+
+.adminNav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.adminNav button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.adminNav button.active {
+  background: #75b36a;
+  color: white;
+}
+
+.adminContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
