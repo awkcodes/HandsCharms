@@ -1,0 +1,36 @@
+.authForms {
+  text-align: center;
+}
+
+.authForms h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.authForms form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authForms input {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.authForms button {
+  padding: 0.8rem;
+  background: #75b36a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.switchButton {
+  margin-top: 1rem;
+  background: none !important;
+  color: #75b36a !important;
+  text-decoration: underline;
+}

@@ -1,0 +1,37 @@
+.profileScreen {
+  margin-top: 80px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 80px auto 0;
+}
+
+.profileScreen h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.profileContainer {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.profileItem {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.loader {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #75b36a;
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: red;
+}

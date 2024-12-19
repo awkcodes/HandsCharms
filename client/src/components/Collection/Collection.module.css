@@ -1,0 +1,60 @@
+.collection {
+  padding: 3rem 3rem;
+}
+
+
+.container {
+  display: flex;
+  overflow-x: auto;
+  gap: 3rem;
+  padding: 1.5rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.imageWrapper {
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #75b36a;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0.8rem 0;
+}
+
+.discoverButton {
+  padding: 1rem 2rem;
+  background-color: transparent;
+  border: 2.5px solid #75b36a;
+  color: #75b36a;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.discoverButton:hover {
+  background-color: #75b36a;
+  color: white;
+}
