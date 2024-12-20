@@ -4,22 +4,37 @@ import styles from './AdminPanels.module.css';
 const OrdersPanel = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/admin/orders', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(await response.text());
+        }
+
+        const data = await response.json();
+        setOrders(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
     fetchOrders();
   }, []);
 
-  const fetchOrders = async () => {
-    try {
-      const response = await fetch('/api/admin/orders');
-      const data = await response.json();
-      setOrders(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Failed to fetch orders:', error);
-      setLoading(false);
-    }
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={styles.panel}>

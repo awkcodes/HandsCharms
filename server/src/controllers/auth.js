@@ -63,7 +63,7 @@ class AuthController {
   async getProfile(req, res) {
     try {
       const user = await User.findByPk(req.user.id, {
-        attributes: ['id', 'name', 'email', 'address']
+        attributes: ['id', 'name', 'email', 'address', 'isAdmin']
       });
       
       if (!user) {
