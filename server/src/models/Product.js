@@ -22,10 +22,6 @@ Product.init({
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    discount: {
-        type: DataTypes.FLOAT,
-        allowNull: true
-    },
     image: {
         type: DataTypes.STRING,
         allowNull: true
@@ -33,10 +29,6 @@ Product.init({
     description: {
         type: DataTypes.TEXT,
         allowNull: true
-    },
-    stock: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     },
     quantity: {
         type: DataTypes.INTEGER,

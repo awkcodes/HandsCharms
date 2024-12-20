@@ -2,6 +2,19 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import Product from '../models/Product.js';
 import Order from '../models/Order.js';
+import multer from 'multer';
+import path from 'path';
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
 
 class AdminController {
   async login(req, res) {
@@ -46,7 +59,18 @@ class AdminController {
 
   async createProduct(req, res) {
     try {
-      const product = await Product.create(req.body);
+      const { name, category, price, quantity, description } = req.body;
+      const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+      const product = await Product.create({
+        name,
+        category,
+        price: parseFloat(price),
+        quantity: parseInt(quantity),
+        description,
+        image: imagePath
+      });
+
       res.status(201).json(product);
     } catch (error) {
       res.status(400).json({ message: error.message });

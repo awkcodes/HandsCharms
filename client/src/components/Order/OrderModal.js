@@ -5,18 +5,14 @@ const OrderModal = ({ product, onClose, onSubmit }) => {
   const [orderData, setOrderData] = useState({
     amount: 1,
     address: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    payment: 'cash'
   });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(orderData);
-  };
 
   return (
     <div className={styles.modal}>
       <h2>Place Order</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => onSubmit(e, orderData)}>
         <div className={styles.formGroup}>
           <label>Quantity:</label>
           <input
@@ -41,6 +37,18 @@ const OrderModal = ({ product, onClose, onSubmit }) => {
             value={orderData.phoneNumber}
             onChange={(e) => setOrderData({...orderData, phoneNumber: e.target.value})}
           />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Payment Method:</label>
+          <select
+            value={orderData.payment}
+            onChange={(e) => setOrderData({...orderData, payment: e.target.value})}
+            required
+          >
+            <option value="cash">Cash on Delivery</option>
+            <option value="credit_card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+          </select>
         </div>
         <div className={styles.buttons}>
           <button type="submit">Confirm Order</button>

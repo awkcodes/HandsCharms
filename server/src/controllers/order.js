@@ -5,7 +5,7 @@ import Product from '../models/Product.js';
 class OrderController {
     async createOrder(req, res) {
         try {
-            const { productId, amount, address, phoneNumber } = req.body;
+            const { productId, amount, address, phoneNumber, payment } = req.body;
             const product = await Product.findByPk(productId);
             
             if (!product || product.quantity < amount) {
@@ -17,7 +17,8 @@ class OrderController {
                 productId,
                 amount,
                 address,
-                phoneNumber
+                phoneNumber,
+                payment
             });
 
             // Update product quantity
