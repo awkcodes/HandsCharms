@@ -50,12 +50,14 @@ Order.init({
     }
 }, {
     sequelize,
-    modelName: 'Order',
+    modelName: 'order',
     timestamps: true
 });
 
-// Define associations
-Order.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-Order.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
+// Add associations
+Order.associate = (models) => {
+  Order.belongsTo(models.User, { as: 'user' });
+  Order.belongsTo(models.Product, { as: 'product' });
+};
 
 export default Order;

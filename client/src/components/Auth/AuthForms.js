@@ -7,29 +7,35 @@ const AuthForms = ({ onClose }) => {
     email: '',
     password: '',
     name: '',
-    address: ''  // Add address field
+    address: ''
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isLogin && !formData.address) {
-      alert('Address is required for registration');
-      return;
-    }
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+      // Only send required fields based on login/register
+      const requestData = isLogin ? 
+        { email: formData.email, password: formData.password } :
+        formData;
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(requestData)
       });
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.user.id);
         onClose();
+        window.location.reload();
+      } else {
+        alert(data.message || 'Authentication failed');
       }
     } catch (error) {
       console.error('Auth error:', error);
+      alert('Authentication failed');
     }
   };
 
@@ -44,12 +50,13 @@ const AuthForms = ({ onClose }) => {
               placeholder="Name"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
+              required={!isLogin}
             />
             <textarea
               placeholder="Address"
               value={formData.address}
               onChange={(e) => setFormData({...formData, address: e.target.value})}
-              required
+              required={!isLogin}
             />
           </>
         )}

@@ -5,12 +5,16 @@ import Order from '../models/Order.js';
 
 class AdminController {
   async login(req, res) {
-    const { email, password } = req.body;
-    if (email === process.env.admin_email && password === process.env.admin_password) {
-      const token = jwt.sign({ email }, process.env.JWT_SECRET);
-      res.json({ token });
-    } else {
-      res.status(401).json({ message: 'Invalid credentials' });
+    try {
+      const { email, password } = req.body;
+      if (email === process.env.admin_email && password === process.env.admin_password) {
+        const token = jwt.sign({ email }, process.env.JWT_SECRET);
+        res.json({ token });
+      } else {
+        res.status(401).json({ message: 'Invalid admin credentials' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   }
 
@@ -81,8 +85,8 @@ class AdminController {
     try {
       const orders = await Order.findAll({
         include: [
-          { model: User, attributes: ['id', 'email', 'name'] },
-          { model: Product, attributes: ['id', 'name', 'price'] }
+          { model: User, as: 'user' },
+          { model: Product, as: 'product' }
         ]
       });
       res.json(orders);

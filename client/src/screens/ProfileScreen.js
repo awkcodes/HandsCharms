@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './ProfileScreen.module.css';
 
 const ProfileScreen = () => {
@@ -6,6 +7,7 @@ const ProfileScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,34 +33,59 @@ const ProfileScreen = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/api/orders/user', {
+        const userId = localStorage.getItem('userId');
+        
+        if (!userId) {
+          throw new Error('User ID not found');
+        }
+
+        const response = await fetch(`/api/orders/user`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch orders');
+        }
+        
         const data = await response.json();
         setOrders(data);
-      } catch (error) {
-        // Handle error
+      } catch (err) {
+        console.error('Error fetching orders:', err);
+        setError(err.message);
       }
     };
-    fetchOrders();
-  }, []);
+
+    if (user) {
+      fetchOrders();
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    navigate('/');
+    window.location.reload();
+  };
 
   if (loading) return <div className={styles.loader}>Loading...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <div className={styles.profileScreen}>
-      <h1>User Profile</h1>
       <div className={styles.profileContainer}>
-        <div className={styles.profileItem}>
-          <strong>Name:</strong> {user.name}
-        </div>
-        <div className={styles.profileItem}>
-          <strong>Email:</strong> {user.email}
-        </div>
-        {/* Add more user information as needed */}
+        <h2>Profile Information</h2>
+        {user && (
+          <div className={styles.profileInfo}>
+            <p><strong>Name:</strong> {user.name}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Address:</strong> {user.address}</p>
+            <button onClick={handleLogout} className={styles.logoutButton}>
+              Logout
+            </button>
+          </div>
+        )}
       </div>
       <div className={styles.ordersSection}>
         <h2>My Orders</h2>

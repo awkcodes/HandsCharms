@@ -31,16 +31,30 @@ class OrderController {
 
     async getOrdersByUser(req, res) {
         try {
-            const userId = req.userId; // From auth middleware
+            const userId = req.user.id;
+            
+            if (!userId) {
+                return res.status(400).json({ message: 'User ID not found' });
+            }
+
             const orders = await Order.findAll({
                 where: { userId },
                 include: [
-                    { model: Product, as: 'product' }
-                ]
+                    { 
+                        model: Product,
+                        as: 'product',
+                        attributes: ['id', 'name', 'price', 'image'] 
+                    }
+                ],
+                order: [['createdAt', 'DESC']]
             });
+
             res.status(200).json(orders);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching orders', error: error.message });
+            res.status(500).json({ 
+                message: 'Error fetching orders', 
+                error: error.message 
+            });
         }
     }
 
