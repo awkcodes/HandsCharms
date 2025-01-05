@@ -157,7 +157,7 @@ const ProductsPanel = () => {
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
-              <th>Actions</th>
+              <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
@@ -167,10 +167,7 @@ const ProductsPanel = () => {
                 <td>{product.name}</td>
                 <td>{product.category}</td>
                 <td>${product.price}</td>
-                <td>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                </td>
+                <td>{product.quantity}</td>
               </tr>
             ))}
           </tbody>

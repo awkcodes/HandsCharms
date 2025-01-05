@@ -6,7 +6,8 @@ import authRoutes from './routes/auth.js';
 import productRoutes from './routes/product.js';
 import orderRoutes from './routes/order.js';
 import adminRoutes from './routes/admin.js';
-import { User, Product, Order } from './models/index.js';
+import sellerRoutes from './routes/seller.js';
+
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,7 +21,10 @@ sequelize.authenticate()
     .then(() => {
         console.log('Database connected successfully');
         // Force sync during development
-        return sequelize.sync({ force: true });
+        return sequelize.sync({ 
+           // force: true 
+            });
+        
     })
     .then(() => {
         console.log('Database synchronized and models updated');
@@ -35,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/seller', sellerRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

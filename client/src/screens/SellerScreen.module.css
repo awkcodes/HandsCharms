@@ -1,0 +1,35 @@
+.sellerScreen {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sellerNav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.sellerNav button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #666;
+  border-radius: 4px;
+}
+
+.sellerNav button.active {
+  background: #75b36a;
+  color: white;
+}
+
+.sellerContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}

@@ -14,7 +14,7 @@ const ShopScreen = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();
+        const { data } = await getProducts();
         setProducts(data);
         setLoading(false);
       } catch (err) {

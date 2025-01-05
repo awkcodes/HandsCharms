@@ -13,15 +13,15 @@ Order.init({
     },
     amount: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            min: 1
-        }
+        allowNull: false
     },
-    status: {
-        type: DataTypes.ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled'),
-        allowNull: false,
-        defaultValue: 'pending'
+    address: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     date: {
         type: DataTypes.DATE,
@@ -31,6 +31,10 @@ Order.init({
     payment: {
         type: DataTypes.ENUM('cash', 'credit_card', 'paypal'),
         allowNull: false
+    },
+    status: {
+        type: DataTypes.STRING,
+        defaultValue: 'pending'
     },
     userId: {
         type: DataTypes.INTEGER,
@@ -50,14 +54,11 @@ Order.init({
     }
 }, {
     sequelize,
-    modelName: 'order',
-    timestamps: true
+    modelName: 'order'
 });
 
-// Add associations
-Order.associate = (models) => {
-  Order.belongsTo(models.User, { as: 'user' });
-  Order.belongsTo(models.Product, { as: 'product' });
-};
+// Define associations
+Order.belongsTo(User, { as: 'user', foreignKey: 'userId' });
+Order.belongsTo(Product, { as: 'product', foreignKey: 'productId' });
 
 export default Order;

@@ -28,5 +28,6 @@ router.post('/products', adminAuth, upload.single('image'), adminController.crea
 router.get('/products', adminController.getProducts);
 router.get('/orders', adminController.getOrders);
 router.get('/users', adminController.getUsers);
+router.post('/users', adminController.createUser);
 
 export default router;

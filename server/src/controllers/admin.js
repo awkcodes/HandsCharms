@@ -4,6 +4,7 @@ import Product from '../models/Product.js';
 import Order from '../models/Order.js';
 import multer from 'multer';
 import path from 'path';
+import bcrypt from 'bcryptjs';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -45,6 +46,32 @@ class AdminController {
       res.json({ message: 'User deleted successfully' });
     } catch (error) {
       res.status(500).json({ message: error.message });
+    }
+  }
+
+  async createUser(req, res) {
+    try {
+      const { name, email, password, address, isSeller } = req.body;
+      
+      const hashedPassword = await bcrypt.hash(password, 10);
+      
+      const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        address,
+        isSeller: isSeller || false
+      });
+
+      res.status(201).json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        isSeller: user.isSeller
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
     }
   }
 

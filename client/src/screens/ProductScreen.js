@@ -11,23 +11,37 @@ const ProductScreen = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(`/api/products/${id}`);
-        const data = await response.json();
-        setProduct(data);
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load product');
-        setLoading(false);
-      }
-    };
     fetchProduct();
   }, [id]);
 
-  const handleOrder = async (orderData) => {
+  const fetchProduct = async () => {
     try {
+      const response = await fetch(`/api/products/${id}`);
+      const data = await response.json();
+      setProduct(data);
+      setLoading(false);
+    } catch (err) {
+      setError('Failed to load product');
+      setLoading(false);
+    }
+  };
+
+  const handleOrder = async (e, orderData) => {
+    e.preventDefault();
+    try {
+      // Check if user is logged in
       const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Please login to place an order');
+        return;
+      }
+
+      // Check product availability
+      if (product.quantity < orderData.amount) {
+        alert('Product quantity not available');
+        return;
+      }
+
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: {
@@ -39,12 +53,20 @@ const ProductScreen = () => {
           ...orderData
         })
       });
+
+      const data = await response.json();
+
       if (response.ok) {
         setShowOrderModal(false);
-        // Show success message
+        alert('Order placed successfully!');
+        // Optional: Refresh product data to show updated quantity
+        fetchProduct();
+      } else {
+        throw new Error(data.message || 'Failed to place order');
       }
     } catch (error) {
-      // Handle error
+      console.error('Order error:', error);
+      alert(error.message || 'Failed to place order');
     }
   };
 

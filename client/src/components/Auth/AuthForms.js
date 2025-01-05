@@ -14,28 +14,27 @@ const AuthForms = ({ onClose }) => {
     e.preventDefault();
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-      // Only send required fields based on login/register
-      const requestData = isLogin ? 
-        { email: formData.email, password: formData.password } :
-        formData;
-
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(formData)
       });
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.user.id);
+        if (data.user.isAdmin) {
+          localStorage.setItem('userType', 'admin');
+        } else if (data.user.isSeller) {
+          localStorage.setItem('userType', 'seller');
+        } else {
+          localStorage.setItem('userType', 'user');
+        }
         onClose();
         window.location.reload();
-      } else {
-        alert(data.message || 'Authentication failed');
       }
     } catch (error) {
       console.error('Auth error:', error);
-      alert('Authentication failed');
     }
   };
 

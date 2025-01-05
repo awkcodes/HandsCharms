@@ -59,10 +59,6 @@ const OrdersPanel = () => {
                 <td>{order.product?.name}</td>
                 <td>{order.amount}</td>
                 <td>{order.status}</td>
-                <td>
-                  <button>Update Status</button>
-                  <button>Delete</button>
-                </td>
               </tr>
             ))}
           </tbody>

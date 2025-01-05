@@ -69,6 +69,30 @@ const ProfileScreen = () => {
     window.location.reload();
   };
 
+  const handleStatusChange = async (orderId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/orders/${orderId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: 'delivered' })
+      });
+
+      if (response.ok) {
+        setOrders(orders.map(order => 
+          order.id === orderId 
+            ? { ...order, status: 'delivered' }
+            : order
+        ));
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
+
   if (loading) return <div className={styles.loader}>Loading...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
 
@@ -89,13 +113,28 @@ const ProfileScreen = () => {
       </div>
       <div className={styles.ordersSection}>
         <h2>My Orders</h2>
-        <div className={styles.ordersList}>
+        <div className={styles.ordersGrid}>
           {orders.map(order => (
-            <div key={order.id} className={styles.orderItem}>
-              <p>Order ID: {order.id}</p>
-              <p>Status: {order.status}</p>
-              <p>Amount: {order.amount}</p>
-              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+            <div key={order.id} className={styles.orderCard}>
+              <div className={styles.orderHeader}>
+                <span className={styles.orderId}>Order #{order.id}</span>
+                <span className={`${styles.status} ${styles[order.status]}`}>
+                  {order.status}
+                </span>
+              </div>
+              <div className={styles.orderDetails}>
+                <p>Amount: {order.amount}</p>
+                <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+                <p>Payment: {order.payment}</p>
+              </div>
+              {order.status === 'pending' && (
+                <button 
+                  onClick={() => handleStatusChange(order.id)}
+                  className={styles.deliveredButton}
+                >
+                  Mark as Delivered
+                </button>
+              )}
             </div>
           ))}
         </div>
