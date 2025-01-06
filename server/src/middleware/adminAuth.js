@@ -9,7 +9,7 @@ const adminAuth = async (req, res, next) => {
       return res.status(401).json({ message: 'Admin authentication required' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, "your_jwt_secret_key");
     const user = await User.findByPk(decoded.id);
 
     if (!user || !user.isAdmin) {
