@@ -46,15 +46,15 @@
 
 .discoverButton {
   padding: 1rem 2rem;
-  background-color: transparent;
+  background-color: transparent !important;
   border: 2.5px solid #75b36a;
-  color: #75b36a;
+  color: #75b36a !important;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .discoverButton:hover {
-  background-color: #75b36a;
+  background-color: #75b36a !important;
   color: white;
 }

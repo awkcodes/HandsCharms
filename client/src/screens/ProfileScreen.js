@@ -8,7 +8,7 @@ const ProfileScreen = () => {
   const [error, setError] = useState(null);
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -98,7 +98,7 @@ const ProfileScreen = () => {
 
   return (
     <div className={styles.profileScreen}>
-      <div className={styles.profileContainer}>
+      <div className={styles.userProfile}>
         <h2>Profile Information</h2>
         {user && (
           <div className={styles.profileInfo}>
@@ -111,33 +111,40 @@ const ProfileScreen = () => {
           </div>
         )}
       </div>
+
       <div className={styles.ordersSection}>
         <h2>My Orders</h2>
-        <div className={styles.ordersGrid}>
-          {orders.map(order => (
-            <div key={order.id} className={styles.orderCard}>
-              <div className={styles.orderHeader}>
-                <span className={styles.orderId}>Order #{order.id}</span>
-                <span className={`${styles.status} ${styles[order.status]}`}>
-                  {order.status}
-                </span>
+        {orders && orders.length > 0 ? (
+          <div className={styles.ordersGrid}>
+            {orders.map(order => (
+              <div key={order.id} className={styles.orderCard}>
+                <div className={styles.orderHeader}>
+                  <span className={styles.orderId}>Order #{order.id}</span>
+                  <span className={`${styles.status} ${styles[order.status]}`}>
+                    {order.status}
+                  </span>
+                </div>
+                <div className={styles.orderDetails}>
+                  <p>Amount: {order.amount}</p>
+                  <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+                  <p>Payment: {order.payment}</p>
+                </div>
+                {order.status === 'pending' && (
+                  <button 
+                    onClick={() => handleStatusChange(order.id)}
+                    className={styles.deliveredButton}
+                  >
+                    Mark as Delivered
+                  </button>
+                )}
               </div>
-              <div className={styles.orderDetails}>
-                <p>Amount: {order.amount}</p>
-                <p>Date: {new Date(order.date).toLocaleDateString()}</p>
-                <p>Payment: {order.payment}</p>
-              </div>
-              {order.status === 'pending' && (
-                <button 
-                  onClick={() => handleStatusChange(order.id)}
-                  className={styles.deliveredButton}
-                >
-                  Mark as Delivered
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className={styles.noOrders}>
+            No orders yet
+          </div>
+        )}
       </div>
     </div>
   );

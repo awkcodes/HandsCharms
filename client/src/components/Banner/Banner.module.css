@@ -49,15 +49,15 @@
   font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
   padding: 1rem 2.5rem;
-  background: transparent;
   border: 2px solid white;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  background: transparent !important;
 }
 
 .exploreButton:hover {
-  background: white;
+  background: white !important;
   color: #333;
 }
 

@@ -74,6 +74,18 @@ const ShopScreen = () => {
             >
               Bracelets
             </button>
+            <button 
+              className={category === 'key-ring' ? styles.active : ''}
+              onClick={() => setCategory('key-ring')}
+            >
+              Key Rings
+            </button>
+            <button 
+              className={category === 'phone-hanger' ? styles.active : ''}
+              onClick={() => setCategory('phone-hanger')}
+            >
+              Phone Hangers
+            </button>
           </div>
         </div>
       </div>

@@ -30,6 +30,7 @@
   color: red;
 }
 
+
 .shopScreen {
   padding: 2rem;
   max-width: 1200px;
@@ -85,8 +86,8 @@
 
 .categories button {
   padding: 0.8rem 1.5rem;
-  border: none;
-  background: #f5f5f5;
+  border: 1px solid #ddd;
+  background: white;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -95,6 +96,11 @@
 .categories button.active {
   background: #75b36a;
   color: white;
+  border-color: #75b36a;
+}
+
+.categories button:hover:not(.active) {
+  background: #f5f5f5;
 }
 
 .productsGrid {

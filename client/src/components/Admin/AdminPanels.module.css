@@ -36,11 +36,6 @@ button:first-child {
   color: white;
 }
 
-button:last-child {
-  background: #ff4444;
-  color: white;
-}
-
 .modal {
   position: fixed;
   top: 50%;
