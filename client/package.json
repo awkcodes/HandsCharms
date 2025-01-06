@@ -1,7 +1,7 @@
 {
   "name": "handscharms",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "https://handscharms.onrender.com",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -20,7 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [

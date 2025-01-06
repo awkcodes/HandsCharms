@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.67cc1b76.css",
+    "main.js": "/static/js/main.783bcee8.js",
+    "static/media/banner-bg.jpg": "/static/media/banner-bg.91774fdd3e3adc93d278.jpg",
+    "static/media/setphone.jpg": "/static/media/setphone.fd8a772cf34e3a38cbfb.jpg",
+    "static/media/ring.jpg": "/static/media/ring.84193df9384c11a4b94d.jpg",
+    "static/media/bracelet.jpg": "/static/media/bracelet.eb2e6e836a0a2ca8176b.jpg",
+    "static/media/necklace.jpg": "/static/media/necklace.ab0c56f787c4d783a40a.jpg",
+    "static/media/Logo.png": "/static/media/Logo.a64264ea1ef25fccad0d.png",
+    "static/media/keyring.jpg": "/static/media/keyring.1df0fd477a61b98ab2a0.jpg",
+    "index.html": "/index.html",
+    "main.67cc1b76.css.map": "/static/css/main.67cc1b76.css.map",
+    "main.783bcee8.js.map": "/static/js/main.783bcee8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.67cc1b76.css",
+    "static/js/main.783bcee8.js"
+  ]
+}

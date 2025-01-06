@@ -93,8 +93,12 @@ const ProductScreen = () => {
             )}
           </div>
           <p className={styles.description}>{product.description}</p>
-          <button className={styles.addToCartBtn}>Add to Cart</button>
-          <button onClick={() => setShowOrderModal(true)}>Order Now</button>
+          <button 
+            className={styles.orderButton}
+            onClick={() => setShowOrderModal(true)}
+          >
+            Order Now
+          </button>
         </div>
       </div>
       {showOrderModal && (
