@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 
+const JWT_SECRET = "your_jwt_secret_key";
+
 class AuthController {
   async register(req, res) {
     try {
@@ -15,7 +17,7 @@ class AuthController {
       
       const token = jwt.sign(
         { id: user.id, email: user.email },
-        process.env.JWT_SECRET
+        JWT_SECRET
       );
 
       res.status(201).json({
@@ -43,7 +45,7 @@ class AuthController {
 
       const token = jwt.sign(
         { id: user.id, email: user.email },
-        process.env.JWT_SECRET
+        JWT_SECRET
       );
 
       res.json({

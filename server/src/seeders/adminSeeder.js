@@ -4,17 +4,20 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const adminEmail = "a@handscharms.com";
+const adminPassword = "admin_password";
+
 const createAdmin = async () => {
   try {
     const adminExists = await User.findOne({
-      where: { email: process.env.admin_email }
+      where: { email: adminEmail }
     });
 
     if (!adminExists) {
       await User.create({
         name: 'Admin',
-        email: process.env.admin_email,
-        password: await bcrypt.hash(process.env.admin_password, 10),
+        email: adminEmail,
+        password: await bcrypt.hash(adminPassword, 10),
         address: 'Admin Address',
         isAdmin: true
       });
